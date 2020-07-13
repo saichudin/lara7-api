@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mobil;
+use App\Http\Resources\MobilResource;
 
 class MobilController extends Controller
 {
@@ -14,9 +15,8 @@ class MobilController extends Controller
      */
     public function index()
     {
-        return response()->json([
-            'mobil' => Mobil::all()
-        ],200);
+        $mobil = Mobil::all();
+        return new MobilResource($mobil);
     }
 
     /**
