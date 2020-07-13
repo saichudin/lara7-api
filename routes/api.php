@@ -25,8 +25,12 @@ Route::get('/tt', function (){
         'message' => 'success'
     ], 200);
 });
-Route::get('/mobil', 'MobilController@index');
-Route::get('/mobil/search/{id}', 'MobilController@show');
-Route::post('/mobil', 'MobilController@store');
-Route::put('/mobil/{id}', 'MobilController@update');
-Route::delete('/mobil/{id}', 'MobilController@destroy');
+
+Route::post('/register', 'AuthController@register');
+Route::post('/login', 'AuthController@login');
+
+Route::get('/mobil', 'MobilController@index')->middleware('auth:api');
+Route::get('/mobil/{id}', 'MobilController@show')->middleware('auth:api');
+Route::post('/mobil', 'MobilController@store')->middleware('auth:api');
+Route::put('/mobil/{id}', 'MobilController@update')->middleware('auth:api');
+Route::delete('/mobil/{id}', 'MobilController@destroy')->middleware('auth:api');

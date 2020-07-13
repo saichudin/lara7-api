@@ -8,33 +8,12 @@ use App\Http\Resources\MobilResource;
 
 class MobilController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $mobil = Mobil::all();
         return new MobilResource($mobil);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         try {
@@ -51,7 +30,7 @@ class MobilController extends Controller
             ]);
 
             return response()->json([
-                'message' => 'sucess insert data'
+                'message' => 'success insert data'
             ], 200);
         } catch (\Illuminate\Database\QueryException $e) {
             return response()->json([
@@ -60,44 +39,18 @@ class MobilController extends Controller
         } 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $mobil = Mobil::find($id);
         if (empty($mobil)) {
             return response()->json([
-                'mobil' => 'tidak ada data'
+                'message' => 'no data found'
             ], 404);
         }
 
-        return response()->json([
-            'mobil' => Mobil::find($id)
-        ], 200);
+        return new MobilResource($mobil);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         try {
@@ -114,7 +67,7 @@ class MobilController extends Controller
             ]);
 
             return response()->json([
-                'message' => 'sucess insert data'
+                'message' => 'success insert data'
             ], 200);
         } catch (\Illuminate\Database\QueryException $e) {
             return response()->json([
@@ -123,18 +76,12 @@ class MobilController extends Controller
         } 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $mobil = Mobil::destroy($id);
         if($mobil) {
             return response()->json([
-                'message' => 'sucess delete data'
+                'message' => 'success delete data'
             ], 200);
         }
     }
