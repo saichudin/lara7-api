@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\User;
+use App\Http\Resources\UserCollection;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +36,12 @@ Route::get('/mobil/{id}', 'MobilController@show')->middleware('auth:api');
 Route::post('/mobil', 'MobilController@store')->middleware('auth:api');
 Route::put('/mobil/{id}', 'MobilController@update')->middleware('auth:api');
 Route::delete('/mobil/{id}', 'MobilController@destroy')->middleware('auth:api');
+
+//use resource collection
+Route::get('/users', function () {
+    return new UserCollection(User::all());
+});
+
+//eloquent relation
+Route::get('/transaksi', 'TransaksiController@index');
+Route::get('/detail', 'DetailTransaksiController@index');
